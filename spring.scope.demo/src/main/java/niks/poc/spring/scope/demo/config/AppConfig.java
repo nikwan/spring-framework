@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -29,6 +30,7 @@ import niks.poc.spring.scope.demo.beans.TestBeanCondition;
 @ComponentScan(basePackages = "niks.poc.spring.propagation.demo, niks.poc.spring.scope.demo.beans.jsr250, niks.poc.spring.scope.demo.messageresource, niks.poc.spring.scope.demo.aspect")
 @PropertySource(value="classpath:config/config-test.properties", ignoreResourceNotFound = false)
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class AppConfig {
 	
 	@PreDestroy
