@@ -1,0 +1,20 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<context:annotation-config/>
+       <context:component-scan base-package="niks.poc.spring.scope.demo" />
+       <!-- <bean id="customerService" class="com.mkyong.customer.services.CustomerService" scope="prototype"/> -->
+       
+       <!-- <bean id="ddd" class="ddd.com">
+       <constructor-arg ref="abc"></constructor-arg>
+       </bean> -->
+       <bean id="person" class="niks.poc.spring.scope.demo.beans.Person" scope="singleton"/>
+       
+       <bean id="person2" class="niks.poc.spring.scope.demo.beans.Person" scope="singleton" init-method="init" destroy-method="destroy"/>
+        
+</beans>
+   
