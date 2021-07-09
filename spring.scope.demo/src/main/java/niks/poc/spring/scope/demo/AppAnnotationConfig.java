@@ -44,6 +44,8 @@ public class AppAnnotationConfig {
 	        
 	        Student student = ctx.getBean("student", Student.class);
 	        
+	        student.setName("Hello World!");
+	        
 	        System.out.println("*******student name:" + student.getName());
 	        
 	        //System.out.println("&&&&&&&&" + ctx.getBean("&person"));
