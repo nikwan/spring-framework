@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import niks.poc.spring.scope.demo.entities.Address;
 import niks.poc.spring.scope.demo.entities.UserDetail;
 import niks.poc.spring.scope.demo.entities.UserDetailRowMapper;
 
@@ -20,12 +24,12 @@ public class EmployeDAO {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	void getUserDetails(){
-		
-		
-	}
+	@PersistenceContext
+	private EntityManager em;
 	
-	
+	//@Autowired
+	//IUserCrud userDao;
+		
 	public List<UserDetail> getAllUserDetail() {
 		List<UserDetail> userDetail = (List<UserDetail>) jdbcTemplate.query("select * from user_detail",
 				new UserDetailRowMapper());
@@ -80,4 +84,24 @@ public class EmployeDAO {
 		return userDetail;
 	}
 
+	@Transactional
+	public int insertUserDetail(UserDetail userDetail, Address address) {
+		
+		//userDetail.setAddress(address);
+		
+		em.persist(userDetail);
+		
+		
+		return 100;
+	}
+	
+	@Transactional
+	public UserDetail findUserDetailById(int id) {
+		
+		//userDetail.setAddress(address);
+		
+		return em.find(UserDetail.class, id);
+		
+		
+	}
 }

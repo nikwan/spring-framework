@@ -1,14 +1,33 @@
 package niks.poc.spring.scope.demo.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="user_detail")
 public class UserDetail implements Comparable<UserDetail>{
 	
 	
-	
+	@Id
 	private int id;
+	
+	@Column(name = "first_name")
 	private String firstName;
+	@Column(name = "last_name")
 	private String lastName;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "dob")
 	private String dob;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	Address address;
+	
 	public UserDetail(int id, String firstName, String lastName, String email, String dob) {
 		super();
 		this.id = id;
@@ -63,6 +82,12 @@ public class UserDetail implements Comparable<UserDetail>{
 		}
 		return -1;
 		 
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	
