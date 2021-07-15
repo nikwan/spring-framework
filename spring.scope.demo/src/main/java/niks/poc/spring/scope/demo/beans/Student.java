@@ -6,6 +6,9 @@ import niks.poc.spring.scope.demo.aspect.LoggingType;
 public class Student {
 	
 	String name;
+	String address;
+	
+	
 
 	@Logged(type = LoggingType.Method)
 	public String getName() {
@@ -24,6 +27,14 @@ public class Student {
 	
 	public Student() {
 		
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

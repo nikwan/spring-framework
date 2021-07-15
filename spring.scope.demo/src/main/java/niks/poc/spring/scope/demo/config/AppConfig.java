@@ -2,6 +2,7 @@ package niks.poc.spring.scope.demo.config;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowire;
@@ -15,10 +16,16 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import niks.poc.spring.scope.demo.beans.Person;
@@ -31,6 +38,7 @@ import niks.poc.spring.scope.demo.beans.TestBeanCondition;
 @PropertySource(value="classpath:config/config-test.properties", ignoreResourceNotFound = false)
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
+//@EnableJpaRepositories(basePackages = {"niks.poc.spring.propagation.demo"})
 public class AppConfig {
 	
 	@PreDestroy
@@ -78,10 +86,10 @@ public class AppConfig {
 		return new JdbcTemplate(dataSource());
 	}
 	
-	@Bean
-	public DataSourceTransactionManager txManager() {
-		return new DataSourceTransactionManager(dataSource());
-	}
+	/*
+	 * @Bean public DataSourceTransactionManager txManager() { return new
+	 * DataSourceTransactionManager(dataSource()); }
+	 */
 	
 	
 	@Bean
@@ -97,6 +105,30 @@ public class AppConfig {
 		mc.setCacheSeconds(2);
 		
 		return mc;
+	}
+	
+	@Bean
+	public LocalContainerEntityManagerFactoryBean  entityManagerFactory() {
+
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setDatabase(Database.H2);
+		vendorAdapter.setGenerateDdl(true);
+
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("niks.poc.spring.scope.demo.entities");
+		factory.setDataSource(dataSource());
+		//factory.setPersistenceUnitName("em");
+
+		return factory;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory);
+		return txManager;
 	}
 
 }
