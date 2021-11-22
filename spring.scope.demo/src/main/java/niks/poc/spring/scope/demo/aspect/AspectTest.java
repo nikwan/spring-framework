@@ -12,12 +12,12 @@ public class AspectTest {
 	
 	//@Before("execution(public String niks.poc.spring.scope.demo.beans.Student.getName(..))")
 	//@Before("execution(* niks.poc.spring.scope.demo.beans.Student.getName(..))")
-	@Before("execution(* *.getName(..))")
+	//@Before("execution(* *.getName(..))")
 	public void studentBeforeAware() {
 		System.out.println("####before student get name###");
 	}
 	
-	@After("execution(* *.getName(..))")
+	//@After("execution(* *.getName(..))")
 	public void studentAfterAware() {
 		System.out.println("###After student get name###");
 	}

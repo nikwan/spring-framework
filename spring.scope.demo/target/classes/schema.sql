@@ -6,3 +6,8 @@ CREATE TABLE `user_detail` (
   `dob` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
 );
+CREATE TABLE `address` (
+  `id` int(10) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+  );
