@@ -7,4 +7,4 @@
 ## Database Optimization
 * minimize the round trip to DB
 # UI
-* Angular change dedetection
+* Angular change dedetection [CD-Change Detection](https://v17.angular.io/guide/change-detection)
