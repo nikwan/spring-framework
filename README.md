@@ -4,7 +4,7 @@
 * Rest API best approaches
 * Microservices Best approaches
 * Comparable & Comparator
-* Outof memory issues
+* Outof memory issues (Memory pressure and Disk pressure)
 ## Database Optimization
 * minimize the round trip to DB
 # UI
